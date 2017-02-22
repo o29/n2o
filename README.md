@@ -1,9 +1,9 @@
-# Untyped REPL in Coq
+# CoInductive Shell in Coq
 
 ## Prerequisites
 
     opam repo add coq-released https://coq.inria.fr/opam/released
-    opam install -j4 -v coq-io-system
+    opam install coq-io-system
 
 ## Extract
 
