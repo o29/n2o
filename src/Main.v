@@ -4,12 +4,6 @@ Require Import Io.System.All.
 Require Import ListString.All.
         Import ListNotations.
 
-  Parameter infinity : nat.
-  Extract Constant infinity => "let rec inf = S inf in inf".
-
-  Parameter error : forall {A B}, A -> B.
-  Extract Constant error => "fun _ -> failwith ""Unexpected end""".
-
   CoInductive Co (E : Effect.t) : Type -> Type :=
     | Ret : forall (A : Type) (x : A), Co E A
     | Bind : forall (A B : Type), Co E A -> (A -> Co E B) -> Co E B
@@ -56,6 +50,9 @@ Require Import ListString.All.
       | Some name => log (LString.s "Hello " ++ name ++ LString.s "!")
     end.
 
+  Parameter infinity : nat.
+  Parameter error : forall {A B}, A -> B.
+
   Fixpoint eval_aux {A} (steps : nat) (x : Co effect A) : Lwt.t A :=
     match steps with
       | O => error tt
@@ -91,4 +88,6 @@ Require Import ListString.All.
   Definition main :=
     launch corun. (* launch run. *)
 
+Extract Constant infinity => "let rec inf = S inf in inf".
+Extract Constant error => "fun _ -> failwith ""Unexpected end""".
 Extraction "extraction/main" main.
