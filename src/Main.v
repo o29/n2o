@@ -77,9 +77,20 @@ Definition run (argv : list LString.t): Co System.effect unit :=
   Definition eval {A} (x : Co System.effect A) : Lwt.t A :=
     eval_aux infinity x.
 
+CoFixpoint handle_commands : Co effect unit :=
+  ilet! name := read_line in
+  match name with
+  | None => ret tt
+  | Some command =>
+    ilet! result := log (LString.s "Input: " ++ command ++ LString.s ".") in
+    handle_commands
+  end.
+
   Definition colaunch (m : list LString.t -> Co effect unit): unit :=
     let argv := List.map String.to_lstring Sys.argv in
     Lwt.launch (eval (m argv)).
 
-Definition main := colaunch run.
+  Definition main := colaunch run.
+  CoFixpoint comain : Co effect unit := handle_commands.
+
 Extraction "extraction/main" main.
