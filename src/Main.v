@@ -90,7 +90,8 @@ CoFixpoint handle_commands : Co effect unit :=
     let argv := List.map String.to_lstring Sys.argv in
     Lwt.launch (eval (m argv)).
 
-  Definition main := launch run.
-  CoFixpoint comain : Co effect unit := handle_commands.
+Definition corun (argv : list LString.t): Co System.effect unit := handle_commands.
 
-Extraction "extraction/main" comain.
+Definition main := launch corun. (* place `launch run` for recursive mode *)
+
+Extraction "extraction/main" main.
