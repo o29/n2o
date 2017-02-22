@@ -86,11 +86,11 @@ CoFixpoint handle_commands : Co effect unit :=
     handle_commands
   end.
 
-  Definition colaunch (m : list LString.t -> Co effect unit): unit :=
+  Definition launch (m : list LString.t -> Co effect unit): unit :=
     let argv := List.map String.to_lstring Sys.argv in
     Lwt.launch (eval (m argv)).
 
-  Definition main := colaunch run.
+  Definition main := launch run.
   CoFixpoint comain : Co effect unit := handle_commands.
 
 Extraction "extraction/main" main.
