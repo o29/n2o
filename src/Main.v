@@ -93,4 +93,4 @@ CoFixpoint handle_commands : Co effect unit :=
   Definition main := launch run.
   CoFixpoint comain : Co effect unit := handle_commands.
 
-Extraction "extraction/main" main.
+Extraction "extraction/main" comain.
