@@ -1,4 +1,6 @@
-# CoInductive Shell in Coq
+# N2O: Coq Application Server
+
+Only pure console infinite I/O here for now, stay tuned.
 
 ## Prerequisites
 
