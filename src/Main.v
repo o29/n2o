@@ -1,5 +1,6 @@
 Require Import Coq.Lists.List.
 Require Import Io.All.
+Require Import String.
 Require Import Io.System.All.
 Require Import ListString.All.
         Import ListNotations.
